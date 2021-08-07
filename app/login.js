@@ -50,7 +50,7 @@ function runTiming(clock, value, dest) {
     state.position
   ]);
 }
-class MusicApp extends Component {
+class Login extends Component {
   constructor() {
     super();
 
@@ -147,7 +147,7 @@ class MusicApp extends Component {
     );
   }
 }
-export default MusicApp;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
