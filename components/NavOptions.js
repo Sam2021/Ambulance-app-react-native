@@ -10,7 +10,6 @@ const data = [
     { 
         id: '123',
         title: 'Get a Ambulance',
-        image: 'https://links.papareact.com/3pn',
         screen: 'MapScreen',
     }
 ]
@@ -32,7 +31,7 @@ const NavOptions = () => {
                     <View style={tw `${!origin && 'opacity-20'}`}>
                         <Image
                             style={{width: 120, height: 120, resizeMode: 'contain'}}
-                            source={{uri: item.image}}
+                            source={require('../assets/ambulance-logo.png')}
                         />
                         <Text style={tw `mt-2 text-lg font-semibold`}>{item.title}</Text>
                         <Icon 

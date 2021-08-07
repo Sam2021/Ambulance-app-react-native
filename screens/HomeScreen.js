@@ -21,9 +21,7 @@ const HomeScreen = () => {
                         height: 100,
                         resizeMode: 'contain',
                     }}
-                    source={{
-                        uri: 'https://links.papareact.com/gzs',
-                    }}
+                    source={ require('../assets/logo.png') }
                 />
 
                 <GooglePlacesAutocomplete
