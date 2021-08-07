@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
-import Animated, { Clock, Extrapolate, Value } from 'react-native-reanimated';
+import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
-
 const { width, height } = Dimensions.get('window');
 
-const {Value, 
-  event, 
-  block, 
-  cond, 
-  eq, 
-  set, 
-  Clock, 
-  startClock, 
-  stopClock, 
-  debug, 
-  timing, 
-  clockRunning, 
-  interpolate, 
+const {
+  Value,
+  event,
+  block,
+  cond,
+  eq,
+  set,
+  Clock,
+  startClock,
+  stopClock,
+  debug,
+  timing,
+  clockRunning,
+  interpolateNode,
   Extrapolate
 } = Animated;
 
@@ -51,32 +50,35 @@ function runTiming(clock, value, dest) {
     state.position
   ]);
 }
+class MusicApp extends Component {
+  constructor() {
+    super();
 
-class Login extends Component {
-  constructor(){
-    super()
-
-    this.buttonOpacity = new Value(1)
+    this.buttonOpacity = new Value(1);
 
     this.onStateChange = event([
       {
-        nativeEvent:({state})=> block([
-          cond(eq(state, State.END),set(this.buttonOpacity, runTiming(new Clock(), 1, 0)))
-        ])
+        nativeEvent: ({ state }) =>
+          block([
+            cond(
+              eq(state, State.END),
+              set(this.buttonOpacity, runTiming(new Clock(), 1, 0))
+            )
+          ])
       }
-    ])
+    ]);
 
-    this.buttonY = interpolate(this.buttonOpacity, {
+    this.buttonY = interpolateNode(this.buttonOpacity, {
       inputRange: [0, 1],
       outputRange: [100, 0],
       extrapolate: Extrapolate.CLAMP
-    })
+    });
 
-    this.bgY = interpolate(this.buttonOpacity, {
+    this.bgY = interpolateNode(this.buttonOpacity, {
       inputRange: [0, 1],
       outputRange: [-height / 3, 0],
       extrapolate: Extrapolate.CLAMP
-    })
+    });
   }
   render() {
     return (
@@ -87,26 +89,26 @@ class Login extends Component {
           justifyContent: 'flex-end'
         }}
       >
-        <Animated.View 
-          style={{ ...StyleSheet.absoluteFill, 
-            transform: [{translateY: this.buttonY}]
-            }
-          }
+        <Animated.View
+          style={{
+            ...StyleSheet.absoluteFill,
+            transform: [{ translateY: this.bgY }]
+          }}
         >
           <Image
             source={require('../assets/bg.jpg')}
-            style={{ flex: 1, height: null, width: null}}
-            blurRadius={5}
+            style={{ flex: 1, height: null, width: null }}
+            blurRadius={4}
           />
         </Animated.View>
-        <View style={{height: 350}}>
-            <View>
+        <Animated.View style={{height: 350}}>
+            <Animated.View>
                 <Image
                 source={require('../assets/logo.png')}
                 style={{width: 400, height: 150,marginRight:70}}
                 
                 />
-            </View>
+            </Animated.View>
             <View style={{justifyContent: 'center'}}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'black',width: 500, marginLeft:50, marginTop:10}}>
               LIFE SAVING  <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white',width: 500, marginLeft:150 }}>
@@ -115,27 +117,26 @@ class Login extends Component {
             </Text>
             
           </View>
-        </View>
-        <View style={{ height: height / 3, justifyContent: 'center' }}
-        >
-        <TapGestureHandler onHandlerStateChange={this.onHandlerStateChange}>  
-          <Animated.View 
-            style={{ ...styles.button, 
-              opacity: this.buttonOpacity, 
-              transform: [{translateY: this.buttonY}]
-            }
-            }
-          >
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>SIGN IN</Text>
-          </Animated.View>
-        </TapGestureHandler>
-          <Animated.View 
-            style={{ ...styles.button, 
+        </Animated.View>
+        <View style={{ height: height / 3, justifyContent: 'center' }}>
+          <TapGestureHandler onHandlerStateChange={this.onStateChange}>
+            <Animated.View
+              style={{
+                ...styles.button,
+                opacity: this.buttonOpacity,
+                transform: [{ translateY: this.buttonY }]
+              }}
+            >
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>SIGN IN</Text>
+            </Animated.View>
+          </TapGestureHandler>
+          <Animated.View
+            style={{
+              ...styles.button,
               backgroundColor: '#2E71DC',
-              opacity: this.buttonOpacity, 
-              transform: [{translateY: this.buttonY}]
-            }
-            }
+              opacity: this.buttonOpacity,
+              transform: [{ translateY: this.buttonY }]
+            }}
           >
             <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>
               SIGN IN WITH GOOGLE
@@ -146,7 +147,7 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+export default MusicApp;
 
 const styles = StyleSheet.create({
   container: {
