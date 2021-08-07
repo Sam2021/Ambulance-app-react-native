@@ -2,8 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
-import Login from './app/login';
-
+import Login from './app/Login';
+import { Provider } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { store } from './store';
+import HomeScreen from './app/HomeScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import MapScreen from './app/MapScreen';
 
 function cacheImages(images) {
   return images.map(image => {
@@ -15,6 +23,8 @@ function cacheImages(images) {
   });
 }
 
+const Stack = createStackNavigator();
+
 export default class App extends React.Component{
   
   constructor(){
@@ -23,6 +33,7 @@ export default class App extends React.Component{
       isReady:false
     }
   }
+
   async _loadAssetsAsync() {  
     const imageAssets = cacheImages([require('./assets/bg.jpg')]);
     const fontAssets = cacheFonts([FontAwesome.font]);
@@ -41,7 +52,35 @@ export default class App extends React.Component{
         />
       );
     }
-    return <Login/>;
+    return (
+      <Provider store={store}>
+        
+        <Login/>
+
+        <NavigationContainer>
+        <SafeAreaProvider>
+          <Stack.Navigator>
+            <Stack.Screen 
+              name='HomeScreen'
+              component={HomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name='MapScreen'
+              component={MapScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </SafeAreaProvider>
+        </NavigationContainer>
+
+      </Provider>
+        
+    );
   }
 }
 
