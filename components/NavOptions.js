@@ -9,7 +9,7 @@ import { selectOrigin } from '../slices/navSlice';
 const data = [
     { 
         id: '123',
-        title: 'Get a Ambulance',
+        title: 'Get an Ambulance',
         screen: 'MapScreen',
     }
 ]
@@ -25,17 +25,17 @@ const NavOptions = () => {
             renderItem={({item}) => (
                 <TouchableOpacity 
                     onPress={() => navigation.navigate(item.screen)}
-                    style={tw `p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
+                    style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
                     disabled={!origin}
                 >
-                    <View style={tw `${!origin && 'opacity-20'}`}>
+                    <View style={tw`${!origin && 'opacity-20'}`}>
                         <Image
                             style={{width: 120, height: 120, resizeMode: 'contain'}}
                             source={require('../assets/ambulance-logo.png')}
                         />
-                        <Text style={tw `mt-2 text-lg font-semibold`}>{item.title}</Text>
+                        <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
                         <Icon 
-                            style={tw `p-2 bg-black rounded-full w-10 mt-4`}
+                            style={tw`p-2 bg-black rounded-full w-10 mt-4`}
                             name= 'arrowright' 
                             color='white' 
                             type='antdesign'

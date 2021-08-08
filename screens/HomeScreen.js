@@ -13,8 +13,8 @@ const HomeScreen = () => {
     const dispatch = useDispatch();
 
     return (
-        <SafeAreaView style={tw `bg-white h-full`}>
-            <View style={tw `p-5`}>
+        <SafeAreaView style={tw`bg-white h-full`}>
+            <View style={tw`p-5`}>
                 <Image
                     style={{
                         width: 100,

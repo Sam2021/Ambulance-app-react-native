@@ -36,15 +36,15 @@ const RideOptionsCard = () => {
     const travelTimeInformation = useSelector(selectTravelTimeInformation);
 
     return (
-        <SafeAreaView style={tw `bg-white flex-grow`}>
+        <SafeAreaView style={tw`bg-white flex-grow`}>
             <View>
                 <TouchableOpacity 
                     onPress={() => navigation.navigate('NavigateCard')}
-                    style={tw `absolute top-3 left-5 z-50 p-3 rounded-full`}
+                    style={tw`absolute top-3 left-5 z-50 p-3 rounded-full`}
                 >
                     <Icon name="chevron-left" type="fontawesome"/>
                 </TouchableOpacity>
-                <Text style={tw `text-center py-5 text-xl`}>
+                <Text style={tw`text-center py-5 text-xl`}>
                     Select a Ride - {travelTimeInformation?.distance?.text}
                 </Text>
             </View>
@@ -55,7 +55,7 @@ const RideOptionsCard = () => {
                 renderItem={({item: {id, title, multiplier, image}, item}) => (
                     <TouchableOpacity
                         onPress={() => setSelected(item)}
-                        style={tw `flex-row justify-between items-center px-10 ${id === selected ?.id && 'bg-gray-200'}`}
+                        style={tw`flex-row justify-between items-center px-10 ${id === selected ?.id && 'bg-gray-200'}`}
                     >
                         <Image
                             style={{
@@ -65,11 +65,11 @@ const RideOptionsCard = () => {
                             }}
                             source={{uri: image}}
                         />
-                        <View style={tw `-ml-6`}>
-                            <Text style={tw `text-xl font-semibold`}>{title}</Text>
+                        <View style={tw`-ml-6`}>
+                            <Text style={tw`text-xl font-semibold`}>{title}</Text>
                             <Text>{travelTimeInformation?.duration?.text} Travel Time</Text>
                         </View>
-                        <Text style={tw `text-xl`}>
+                        <Text style={tw`text-xl`}>
                             {new Intl.NumberFormat('en-us', {
                                 style: 'currency',
                                 currency: 'USD',
@@ -78,12 +78,12 @@ const RideOptionsCard = () => {
                     </TouchableOpacity>
                 )}
             />
-            <View style={tw `mt-auto border-t border-gray-200`}>
+            <View style={tw`mt-auto border-t border-gray-200`}>
                 <TouchableOpacity 
                     disabled={!selected} 
-                    style={tw `bg-black py-3 m-3 ${!selected && 'bg-gray-300'}`}
+                    style={tw`bg-black py-3 m-3 ${!selected && 'bg-gray-300'}`}
                 >
-                    <Text style={tw `text-center text-white text-xl`}>Choose {selected?.title}</Text>
+                    <Text style={tw`text-center text-white text-xl`}>Choose {selected?.title}</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
